@@ -36,20 +36,20 @@ class PageViewWidgetState extends State<PageViewWidget> {
     var width = MediaQuery.of(context).size.width;
     List<OnBoardingContentModel> data = [
       OnBoardingContentModel(
-          firstText: 'Quick Delivery At Your\n     Doorstep',
+          firstText: 'Quick Delivery At Your\n           Doorstep',
           secondText:
-              'Enjoy quick pick-up and delivery to\n     your destination',
+              'Enjoy quick pick-up and delivery to\n               your destination',
           image: 'assets/onb1.png'),
       OnBoardingContentModel(
         firstText: 'Flexible Payment',
         secondText:
-            'Different modes of payment either\n   before and after delivery without stress',
+            '   Different modes of payment either\nbefore and after delivery without stress',
         image: 'assets/onb2.png',
       ),
       OnBoardingContentModel(
           firstText: 'Real-time Tracking',
           secondText:
-              'Track your packages/items from the\n   comfort of your home till final destination',
+              '   Track your packages/items from the\ncomfort of your home till final destination',
           image: 'assets/onb3.png')
     ];
     return Scaffold(

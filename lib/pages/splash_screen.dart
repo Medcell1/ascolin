@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   changeScreen() {
     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) {
-      return YourPageViewWidget();
+      return PageViewWidget();
     }), (route) => false);
   }
 
