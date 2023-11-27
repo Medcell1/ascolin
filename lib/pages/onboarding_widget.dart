@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class OnboardingTile extends StatelessWidget {
+class OnboardingWidget extends StatelessWidget {
   final String image;
   final String title;
   final String text;
-  const OnboardingTile({super.key, required this.image, required this.title, required this.text});
+  const OnboardingWidget({super.key, required this.image, required this.title, required this.text});
 
   @override
   Widget build(BuildContext context) {

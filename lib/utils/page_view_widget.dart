@@ -1,9 +1,9 @@
 import 'package:ascolin/model/onboarding_content_model.dart';
-import 'package:ascolin/pages/onboarding_1.dart';
+import 'package:ascolin/pages/onboarding_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
 
-
+import '../pages/sign_up_page.dart';
 
 class PageViewWidget extends StatefulWidget {
   const PageViewWidget({super.key});
@@ -68,7 +68,7 @@ class PageViewWidgetState extends State<PageViewWidget> {
               },
               itemBuilder: (context, index) {
                 final results = data[index];
-                return OnboardingTile(
+                return OnboardingWidget(
                   image: results.image,
                   title: results.firstText,
                   text: results.secondText,
@@ -96,17 +96,29 @@ class PageViewWidgetState extends State<PageViewWidget> {
           _currentPage == data.length - 1
               ? Column(
                   children: [
-                    Container(
-                      decoration: const BoxDecoration(
-                        color: Color(0xff0560fa),
-                      ),
-                      height: 46,
-                      width: 340,
-                      child: const Center(
-                        child: Text(
-                          'Sign Up',
-                          style: TextStyle(
-                            color: Colors.white,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return SignUpPage();
+                            },
+                          ),
+                        );
+                      },
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Color(0xff0560fa),
+                        ),
+                        height: 46,
+                        width: 340,
+                        child: const Center(
+                          child: Text(
+                            'Sign Up',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),

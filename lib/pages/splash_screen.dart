@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:ascolin/pages/onboarding_1.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/page_view_widget.dart';
@@ -28,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   changeScreen() {
     Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) {
-      return PageViewWidget();
+      return const PageViewWidget();
     }), (route) => false);
   }
 
