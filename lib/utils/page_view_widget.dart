@@ -1,5 +1,7 @@
 import 'package:ascolin/model/onboarding_content_model.dart';
 import 'package:ascolin/pages/onboarding_widget.dart';
+import 'package:ascolin/utils/reusable_signup_container.dart';
+import 'package:ascolin/utils/reusable_small_container.dart';
 import 'package:flutter/material.dart';
 import 'package:page_view_dot_indicator/page_view_dot_indicator.dart';
 
@@ -102,26 +104,12 @@ class PageViewWidgetState extends State<PageViewWidget> {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return SignUpPage();
+                              return const SignUpPage();
                             },
                           ),
                         );
                       },
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          color: Color(0xff0560fa),
-                        ),
-                        height: 46,
-                        width: 340,
-                        child: const Center(
-                          child: Text(
-                            'Sign Up',
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
+                      child: const ReusableSignUpContainer(text: 'Sign Up',),
                     ),
                     const SizedBox(
                       height: 15,
@@ -186,23 +174,7 @@ class PageViewWidgetState extends State<PageViewWidget> {
                           curve: Curves.easeInOut,
                         );
                       },
-                      child: Container(
-                        margin: const EdgeInsets.only(right: 20),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: const Color(0xff0560fa),
-                        ),
-                        height: height * 0.055,
-                        width: width * 0.22,
-                        child: const Center(
-                          child: Text(
-                            'Next',
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
+                      child: ReusableSmallContainer(height: height, width: width),
                     ),
                   ],
                 )
@@ -211,3 +183,7 @@ class PageViewWidgetState extends State<PageViewWidget> {
     );
   }
 }
+
+
+
+
