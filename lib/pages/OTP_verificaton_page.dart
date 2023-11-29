@@ -1,3 +1,4 @@
+import 'package:ascolin/pages/new_password_page.dart';
 import 'package:ascolin/utils/reusable_signup_container.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +23,6 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,9 +100,19 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
           SizedBox(
             height: height * 0.1,
           ),
-          const Center(
-            child: ReusableSignUpContainer(
-              text: 'Set New Password',
+          Center(
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) {
+                    return NewPasswordPage();
+                  }),
+                );
+              },
+              child: ReusableSignUpContainer(
+                text: 'Set New Password',
+              ),
             ),
           ),
         ],

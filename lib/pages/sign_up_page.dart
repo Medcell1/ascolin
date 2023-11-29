@@ -1,3 +1,4 @@
+import 'package:ascolin/pages/home_page.dart';
 import 'package:ascolin/pages/sign_in_page.dart';
 import 'package:ascolin/utils/reusable_signup_container.dart';
 import 'package:ascolin/utils/reusable_small_container.dart';
@@ -174,6 +175,13 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 Center(
                   child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                        builder: (context) {
+                          return const HomePage();
+                        },
+                      ), (route) => false);
+                    },
                     child: const ReusableSignUpContainer(
                       text: 'Sign Up',
                     ),
