@@ -1,7 +1,6 @@
-import 'package:ascolin/pages/home_page.dart';
+import 'package:ascolin/pages/main_screen.dart';
 import 'package:ascolin/pages/sign_in_page.dart';
 import 'package:ascolin/utils/reusable_signup_container.dart';
-import 'package:ascolin/utils/reusable_small_container.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/reusable_text.dart';
@@ -178,7 +177,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     onTap: () {
                       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
                         builder: (context) {
-                          return const HomePage();
+                          return MainScreen();
                         },
                       ), (route) => false);
                     },
