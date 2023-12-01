@@ -120,7 +120,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   height: 20,
                 ),
                 Row(
-                  children: [i
+                  children: [
                     GestureDetector(
                       onTap: () {
                         _isChecked = !_isChecked;
