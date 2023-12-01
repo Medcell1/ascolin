@@ -19,7 +19,6 @@ class ReusableTextField extends StatelessWidget {
             style: const TextStyle(
               color: Color(0xffA7A7A7),
               fontWeight: FontWeight.bold,
-
             ),
           ),
         ),
