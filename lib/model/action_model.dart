@@ -41,8 +41,7 @@ List<ActionModel> actionItems = [
   ActionModel(
     icon: 'assets/home4.png',
     label: "Book a Rider",
-    description:
-        "To fund your wallet is as easy as ABC, make use of our fast technology and top-up your wallet today",
+    description: "Search for available driver within your area",
     nextPage: Placeholder(),
   ),
 ];

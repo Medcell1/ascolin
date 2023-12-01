@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../utils/page_view_widget.dart';
@@ -45,10 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           Center(
             child: Image(
-              image: AssetImage(
-
-                'assets/splashimage.png',
-              ),
+              image: AssetImage('assets/splashimage.png'),
             ),
           ),
         ],
