@@ -140,7 +140,7 @@ class HomePage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   height: 70,
-                  // width: 180,
+                  width: 170,
                   child: Container(
                     margin: const EdgeInsets.only(left: 10, top: 20),
                     child: const Text(
@@ -170,7 +170,7 @@ class HomePage extends StatelessWidget {
             GridView.builder(
               physics: NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              itemCount: actionItems.length,
+              itemCount: actionItems(context).length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 mainAxisSpacing: 20,
@@ -179,7 +179,7 @@ class HomePage extends StatelessWidget {
               ),
               itemBuilder: (context, index) {
                 return ActionCard(
-                  actionItem: actionItems[index],
+                  actionItem: actionItems(context)[index],
                 );
               },
             ),
@@ -193,65 +193,69 @@ class HomePage extends StatelessWidget {
 
 class ActionCard extends StatelessWidget {
   final ActionModel actionItem;
+  final dynamic onTap;
   const ActionCard({
     super.key,
-    required this.actionItem,
+    required this.actionItem, this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(2),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey
-                .withOpacity(0.5), // Adjust the shadow color and opacity here
-            spreadRadius: 1.5,
-            blurRadius: 2,
-            offset: Offset(0, 0), // Adjust the position of the shadow
-          ),
-        ],
-      ),
+    return GestureDetector(
+      onTap: actionItem.onTap,
       child: Container(
+        padding: EdgeInsets.all(2),
         decoration: BoxDecoration(
-          color: Colors.grey.shade300,
           borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey
+                  .withOpacity(0.5), // Adjust the shadow color and opacity here
+              spreadRadius: 1.5,
+              blurRadius: 2,
+              offset: Offset(0, 0), // Adjust the position of the shadow
+            ),
+          ],
         ),
-        // height: height * 0.2,
-        // width: width * 0.4,
         child: Container(
-          margin: EdgeInsets.only(left: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 10,
-              ),
-              Image(
-                image: AssetImage(actionItem.icon),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                actionItem.label,
-                style: TextStyle(
-                  color: Color(0xff0560FA),
-                  fontWeight: FontWeight.bold,
+          decoration: BoxDecoration(
+            color: Colors.grey.shade300,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          // height: height * 0.2,
+          // width: width * 0.4,
+          child: Container(
+            margin: EdgeInsets.only(left: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 10,
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                actionItem.description,
-                style: TextStyle(
-                  fontSize: 11,
+                Image(
+                  image: AssetImage(actionItem.icon),
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  actionItem.label,
+                  style: TextStyle(
+                    color: Color(0xff0560FA),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  actionItem.description,
+                  style: TextStyle(
+                    fontSize: 11,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
