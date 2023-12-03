@@ -1,4 +1,5 @@
 import 'package:ascolin/pages/order_list_screen.dart';
+import 'package:ascolin/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       // home: SplashScreen(),
-      home: OrderListScreen(),
+      home: SplashScreen(),
     );
   }
 }

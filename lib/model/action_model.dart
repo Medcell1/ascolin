@@ -1,3 +1,4 @@
+import 'package:ascolin/pages/delivery_succesful.dart';
 import 'package:flutter/material.dart';
 
 import '../pages/order_list_screen.dart';
@@ -29,7 +30,7 @@ List<ActionModel> actionItems = [
     label: "Mes commandes",
     description:
         "Request for a driver to pick up or deliver your package for you",
-    nextPage: OrderListScreen(),
+    nextPage: DeliverySuccessful(),
   ),
   ActionModel(
     icon: 'assets/home3.png',
