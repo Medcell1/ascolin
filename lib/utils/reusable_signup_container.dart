@@ -1,23 +1,36 @@
 import 'package:flutter/material.dart';
+
 class ReusableSignUpContainer extends StatelessWidget {
-  final dynamic text;
+  final String text;
+  final Color? backgroundColor;
+  final EdgeInsetsGeometry? margin;
+
   const ReusableSignUpContainer({
-    super.key, required this.text,
+    super.key,
+    required this.text,
+    this.backgroundColor,
+    this.margin,
   });
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Container(
-      decoration: const BoxDecoration(
-        color: Color(0xff0560fa),
+      margin: margin,
+      decoration: BoxDecoration(
+        color: backgroundColor ?? Color(0xff04009A),
+        borderRadius: BorderRadius.circular(10),
       ),
-      height: 46,
-      width: 340,
-      child:  Center(
+      height: 52,
+      width: size.width - 40,
+      child: Center(
         child: Text(
           text,
           style: const TextStyle(
             color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),
