@@ -1,3 +1,5 @@
+import 'package:ascolin/pages/order_list_screen.dart';
+import 'package:ascolin/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'pages/payment_method_screen.dart';
@@ -25,7 +27,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.white,
       ),
       // home: SplashScreen(),
-      home: PaymentMethodScreen(),
+      home: SplashScreen(),
     );
   }
 }
