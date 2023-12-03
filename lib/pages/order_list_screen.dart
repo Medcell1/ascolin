@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/reusable_signup_container.dart';
 import '../utils/reusable_textfield.dart';
 
 class OrderListScreen extends StatelessWidget {
@@ -44,6 +45,11 @@ class OrderListScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: ReusableSignUpContainer(
+        text: 'Sign Up',
+        margin: EdgeInsets.only(bottom: 20),
       ),
     );
   }
