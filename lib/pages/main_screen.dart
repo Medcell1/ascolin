@@ -1,4 +1,5 @@
 import 'package:ascolin/pages/home_page.dart';
+import 'package:ascolin/pages/profile_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/bottom_bar.dart';
@@ -35,7 +36,7 @@ class _MainScreenState extends State<MainScreen> {
           HomePage(),
           Center(child: Text('Wallet')),
           Center(child: Text('Track')),
-          Center(child: Text('Profile')),
+          ProfileScreen(),
         ],
         controller: _pageController,
       ),

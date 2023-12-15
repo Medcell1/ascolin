@@ -1,61 +1,108 @@
+import 'package:ascolin/base/constant.dart';
+import 'package:ascolin/model/order_model.dart';
+import 'package:ascolin/view_model/order_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../utils/reusable_signup_container.dart';
 import '../utils/reusable_textfield.dart';
+import 'order_detail_screen.dart';
+import 'send_a_package_page.dart';
 
-class OrderListScreen extends StatelessWidget {
+class OrderListScreen extends StatefulWidget {
   const OrderListScreen({super.key});
+
+  @override
+  State<OrderListScreen> createState() => _OrderListScreenState();
+}
+
+class _OrderListScreenState extends State<OrderListScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<OrderProvider>(context, listen: false).getOrders();
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 20),
-              Text(
-                "Active Order",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              SizedBox(height: 20),
-              Row(
-                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Consumer<OrderProvider>(
+      builder: (context, orderProvider, _) {
+        return Scaffold(
+          appBar: AppBar(
+            title: Text("Orders List"),
+          ),
+          body: SafeArea(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    width: size.width / 1.5,
-                    child: ReusableTextField(
-                      text: 'Emaill Address',
-                      hintText: 'Search',
+                  SizedBox(height: 20),
+                  Text(
+                    "Active Order",
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
-                  Text("Filters")
+                  SizedBox(height: 20),
+                  Row(
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: size.width / 1.5,
+                        child: ReusableTextField(
+                          text: 'Email Address',
+                          hintText: 'Search',
+                        ),
+                      ),
+                      Text("Filters")
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  ListView.separated(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: orderProvider.orderList.length,
+                    separatorBuilder: (context, index) => Divider(),
+                    itemBuilder: (context, index) {
+                      final OrderModel currentOrder =
+                          orderProvider.orderList[index];
+
+                      return OrderCard(
+                        order: currentOrder,
+                      );
+                    },
+                  ),
+                  SizedBox(height: 80),
                 ],
               ),
-              SizedBox(height: 20),
-              OrderCard(),
-            ],
+            ),
           ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: ReusableSignUpContainer(
-        text: 'Sign Up',
-        margin: EdgeInsets.only(bottom: 20),
-      ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: ReusableSignUpContainer(
+            onTap: () {
+              Constant.navigatePush(context, SendAPackagePage());
+            },
+            text: 'Nouvelle commande',
+            margin: EdgeInsets.only(bottom: 20),
+            backgroundColor: Color(0xFF0560FA),
+          ),
+        );
+      },
     );
   }
 }
 
 class OrderCard extends StatelessWidget {
+  final OrderModel order;
+
+  const OrderCard({super.key, required this.order});
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -69,9 +116,11 @@ class OrderCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(30),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               RichText(
                 text: TextSpan(
@@ -85,7 +134,8 @@ class OrderCard extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      text: 'Zeus Dossou',
+                      text:
+                          '${order.client?.lastName} ${order.client?.firstName}',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 16,
@@ -108,7 +158,7 @@ class OrderCard extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      text: '4545686',
+                      text: '${order.trackingId}',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 16,
@@ -137,7 +187,7 @@ class OrderCard extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    'Avion',
+                    '${order.transportType?.label}',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16,
@@ -236,7 +286,7 @@ class OrderCard extends StatelessWidget {
                           padding: EdgeInsets.all(8),
                           child: Center(
                             child: Text(
-                              'Cotonou',
+                              '${order.ville}',
                               style: TextStyle(
                                 color: Colors.white, // Text color
                                 fontSize: 14, // Adjust the font size as needed
@@ -258,13 +308,15 @@ class OrderCard extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.green,
+                  color: order.status == 'Réceptionné en Chine'
+                      ? Colors.green
+                      : Colors.greenAccent,
                   borderRadius: BorderRadius.circular(16),
                 ),
                 padding: EdgeInsets.all(8),
                 child: Center(
                   child: Text(
-                    'Reçu en Chine',
+                    '${order.status}',
                     style: TextStyle(
                       color: Colors.white, // Text color
                       fontSize: 14, // Adjust the font size as needed
@@ -273,29 +325,39 @@ class OrderCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  color: Color(0xFF04009A),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding: EdgeInsets.all(12),
-                child: Center(
-                  child: Row(
-                    children: [
-                      Text(
-                        'Voir details',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+              GestureDetector(
+                onTap: () {
+                  Constant.navigatePush(
+                    context,
+                    OrderDetailScreen(
+                      order: order,
+                    ),
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xFF04009A),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: EdgeInsets.all(12),
+                  child: Center(
+                    child: Row(
+                      children: [
+                        Text(
+                          'Voir details',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 5),
-                      Icon(
-                        CupertinoIcons.chevron_down,
-                        color: Colors.white,
-                      )
-                    ],
+                        SizedBox(width: 5),
+                        Icon(
+                          CupertinoIcons.chevron_down,
+                          color: Colors.white,
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

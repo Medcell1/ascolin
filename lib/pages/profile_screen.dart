@@ -1,5 +1,7 @@
+import 'package:ascolin/view_model/auth_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -13,126 +15,130 @@ class ProfileScreen extends StatelessWidget {
         leading: Icon(CupertinoIcons.back),
         title: Text('Profile'),
       ),
-      body: Scaffold(
-        body: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              SizedBox(height: 30),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: Consumer<AuthViewModel>(
+        builder: (context, authViewModel, _) {
+          return Scaffold(
+            body: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
                 children: [
+                  SizedBox(height: 30),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CircleAvatar(
-                        radius: 30,
-                      ),
-                      SizedBox(width: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      Row(
                         children: [
-                          Text(
-                            'Ken Nwaeze',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                            ),
+                          CircleAvatar(
+                            radius: 30,
                           ),
-                          SizedBox(height: 5),
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: 'Balance: ',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 16,
-                                  ),
+                          SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "${authViewModel.userData.email}",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
                                 ),
-                                TextSpan(
-                                  text: 'N10,712:00',
-                                  style: TextStyle(
-                                    color: Color(0xFF04009A),
-                                    fontSize: 16,
-                                  ),
+                              ),
+                              SizedBox(height: 5),
+                              RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: 'Balance: ',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: 'N10,712:00',
+                                      style: TextStyle(
+                                        color: Color(0xFF04009A),
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(CupertinoIcons.eye_slash_fill),
+                      )
                     ],
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(CupertinoIcons.eye_slash_fill),
-                  )
-                ],
-              ),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Enable dark mode',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Enable dark mode',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      CupertinoSwitch(
+                        value: false,
+                        onChanged: (val) {},
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20),
+                  ProfileOptionCard(
+                    icon: Icon(
+                      CupertinoIcons.profile_circled,
+                      size: 30,
                     ),
+                    title: "Edit Profile",
+                    subtitle: "Name, phone no, address, email ...",
                   ),
-                  CupertinoSwitch(
-                    value: false,
-                    onChanged: (val) {},
+                  // SizedBox(height: 15),
+                  ProfileOptionCard(
+                    icon: Icon(
+                      CupertinoIcons.calendar_circle,
+                      size: 30,
+                    ),
+                    title: "Contact",
+                    subtitle: "Name, phone no, address, email ...",
                   ),
+                  ProfileOptionCard(
+                    icon: Icon(
+                      CupertinoIcons.bell,
+                      size: 30,
+                    ),
+                    title: "Notification Settings",
+                    subtitle: "Name, phone no, address, email ...",
+                  ),
+                  SizedBox(height: size.height / 10),
+                  ProfileOptionCard(
+                    icon: Icon(
+                      Icons.image_outlined,
+                      size: 30,
+                    ),
+                    title: "About Us",
+                    subtitle: "Know more about us, terms and conditions",
+                  ),
+                  ProfileOptionCard(
+                    icon: Icon(
+                      Icons.logout,
+                      size: 30,
+                      color: Colors.red,
+                    ),
+                    title: "Log Out",
+                  ),
+                  SizedBox(height: 20),
                 ],
               ),
-              SizedBox(height: 20),
-              ProfileOptionCard(
-                icon: Icon(
-                  CupertinoIcons.profile_circled,
-                  size: 30,
-                ),
-                title: "Edit Profile",
-                subtitle: "Name, phone no, address, email ...",
-              ),
-              // SizedBox(height: 15),
-              ProfileOptionCard(
-                icon: Icon(
-                  CupertinoIcons.calendar_circle,
-                  size: 30,
-                ),
-                title: "Contact",
-                subtitle: "Name, phone no, address, email ...",
-              ),
-              ProfileOptionCard(
-                icon: Icon(
-                  CupertinoIcons.bell,
-                  size: 30,
-                ),
-                title: "Notification Settings",
-                subtitle: "Name, phone no, address, email ...",
-              ),
-              SizedBox(height: size.height / 10),
-              ProfileOptionCard(
-                icon: Icon(
-                  Icons.image_outlined,
-                  size: 30,
-                ),
-                title: "About Us",
-                subtitle: "Know more about us, terms and conditions",
-              ),
-              ProfileOptionCard(
-                icon: Icon(
-                  Icons.logout,
-                  size: 30,
-                  color: Colors.red,
-                ),
-                title: "Log Out",
-              ),
-              SizedBox(height: 20),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }

@@ -1,6 +1,7 @@
 import 'package:ascolin/base/constant.dart';
 import 'package:ascolin/model/action_model.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -203,7 +204,13 @@ class ActionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Constant.navigatePush(context, actionItem.nextPage);
+        if (actionItem.nextPage is Widget) {
+          Widget widget = actionItem.nextPage as Widget;
+          Constant.navigatePush(context, widget);
+        } else if (actionItem.nextPage is String) {
+          String string = actionItem.nextPage as String;
+          launchUrl(Uri.parse(string));
+        }
       },
       child: Container(
         padding: EdgeInsets.all(2),
