@@ -20,23 +20,27 @@ class BottomBar extends StatelessWidget {
       unselectedItemColor: Colors.grey,
       items: [
         BottomNavigationBarItem(
-          label: "Home",
+          label: "Accueil",
           icon: Icon(CupertinoIcons.square_grid_2x2),
+        ),
+        BottomNavigationBarItem(
+          label: "Commandes",
+          icon: Icon(Icons.shopping_cart),
         ),
         // BottomNavigationBarItem(
         //   label: "Dashboard",
         //   icon: Icon(Icons.shopping_cart),
         // ),
+        // BottomNavigationBarItem(
+        //   label: "Wallet",
+        //   icon: Icon(Icons.wallet),
+        // ),
+        // BottomNavigationBarItem(
+        //   label: "Track",
+        //   icon: Icon(CupertinoIcons.person_3_fill),
+        // ),
         BottomNavigationBarItem(
-          label: "Wallet",
-          icon: Icon(Icons.wallet),
-        ),
-        BottomNavigationBarItem(
-          label: "Track",
-          icon: Icon(CupertinoIcons.person_3_fill),
-        ),
-        BottomNavigationBarItem(
-          label: "Profile",
+          label: "Aceuil",
           icon: Icon(CupertinoIcons.profile_circled),
         ),
       ],

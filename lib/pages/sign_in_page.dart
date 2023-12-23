@@ -43,7 +43,7 @@ class _SignInPageState extends State<SignInPage> {
                     Container(
                       margin: const EdgeInsets.only(left: 20),
                       child: const Text(
-                        'Welcome Back',
+                        'Bienvenue',
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 24,
@@ -56,7 +56,7 @@ class _SignInPageState extends State<SignInPage> {
                     Container(
                       margin: const EdgeInsets.only(left: 20),
                       child: const Text(
-                        'Fill in your email and password to continue',
+                        'Entrez votre email et votre mot de passe pour vous connectez',
                         style: TextStyle(
                           color: Color(0xffA7A7A7),
                           fontWeight: FontWeight.bold,
@@ -96,68 +96,68 @@ class _SignInPageState extends State<SignInPage> {
                 const SizedBox(
                   height: 20,
                 ),
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        _isChecked = !_isChecked;
-                        setState(() {});
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(left: 20),
-                        width: 20,
-                        height: 20,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(3),
-                          color: _isChecked
-                              ? const Color(0xff006CEC)
-                              : Colors.white,
-                          border: Border.all(
-                            color: const Color(0xff006CEC),
-                          ),
-                        ),
-                        child: Visibility(
-                          visible: _isChecked,
-                          child: Icon(
-                            Icons.check,
-                            color: _isChecked ? Colors.white : Colors.black,
-                            size: 16,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 6,
-                    ),
-                    const ReusableText(
-                      text: 'Remember Password',
-                      color: Color(0xffCFCFCF),
-                    ),
-                    Spacer(),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return const ForgotPasswordPage();
-                            },
-                          ),
-                        );
-                      },
-                      child: const ReusableText(
-                        text: 'Forgot Password?',
-                        color: Color(0xff0560FA),
-                      ),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   children: [
+                //     GestureDetector(
+                //       onTap: () {
+                //         _isChecked = !_isChecked;
+                //         setState(() {});
+                //       },
+                //       child: Container(
+                //         margin: const EdgeInsets.only(left: 20),
+                //         width: 20,
+                //         height: 20,
+                //         decoration: BoxDecoration(
+                //           borderRadius: BorderRadius.circular(3),
+                //           color: _isChecked
+                //               ? const Color(0xff006CEC)
+                //               : Colors.white,
+                //           border: Border.all(
+                //             color: const Color(0xff006CEC),
+                //           ),
+                //         ),
+                //         child: Visibility(
+                //           visible: _isChecked,
+                //           child: Icon(
+                //             Icons.check,
+                //             color: _isChecked ? Colors.white : Colors.black,
+                //             size: 16,
+                //           ),
+                //         ),
+                //       ),
+                //     ),
+                //     const SizedBox(
+                //       width: 6,
+                //     ),
+                //     const ReusableText(
+                //       text: "Rappel moi",
+                //       color: Color(0xffCFCFCF),
+                //     ),
+                //     Spacer(),
+                //     InkWell(
+                //       onTap: () {
+                //         Navigator.push(
+                //           context,
+                //           MaterialPageRoute(
+                //             builder: (context) {
+                //               return const ForgotPasswordPage();
+                //             },
+                //           ),
+                //         );
+                //       },
+                //       child: const ReusableText(
+                //         text: 'Mot de passe oublié?',
+                //         color: Color(0xff0560FA),
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 SizedBox(
                   height: height * 0.25,
                 ),
                 ReusableSignUpContainer(
                   onTap: () => authViewModel.login(context),
-                  text: 'Log In',
+                  text: 'Se connecter',
                 ),
                 SizedBox(
                   height: 20,
@@ -166,7 +166,7 @@ class _SignInPageState extends State<SignInPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      "Don't have an account?",
+                      "Vous n'avez pas de compte ?",
                       style: TextStyle(
                           fontSize: 15,
                           color: Colors.grey,
@@ -187,7 +187,7 @@ class _SignInPageState extends State<SignInPage> {
                         );
                       },
                       child: const Text(
-                        'Sign in',
+                        "S'inscrire",
                         style: TextStyle(
                             fontSize: 15,
                             color: Color(0xff0560fa),
@@ -196,45 +196,45 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
-                const Text(
-                  "or log in using",
-                  style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image(
-                      image: AssetImage(
-                        'assets/fb.png',
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Image(
-                      image: AssetImage(
-                        'assets/google.png',
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Image(
-                      image: AssetImage(
-                        'assets/apple.png',
-                      ),
-                    ),
-                  ],
-                )
+                // const SizedBox(
+                //   height: 30,
+                // ),
+                // const Text(
+                //   "or log in using",
+                //   style: TextStyle(
+                //       fontSize: 15,
+                //       color: Colors.grey,
+                //       fontWeight: FontWeight.bold),
+                // ),
+                // const SizedBox(
+                //   height: 10,
+                // ),
+                // const Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     Image(
+                //       image: AssetImage(
+                //         'assets/fb.png',
+                //       ),
+                //     ),
+                //     SizedBox(
+                //       width: 10,
+                //     ),
+                //     Image(
+                //       image: AssetImage(
+                //         'assets/google.png',
+                //       ),
+                //     ),
+                //     SizedBox(
+                //       width: 10,
+                //     ),
+                //     Image(
+                //       image: AssetImage(
+                //         'assets/apple.png',
+                //       ),
+                //     ),
+                //   ],
+                // ),
               ],
             ),
           ),

@@ -3,13 +3,38 @@ import 'package:flutter/material.dart';
 
 import '../utils/reusable_signup_container.dart';
 
-class OrderDetailScreen extends StatelessWidget {
+class OrderDetailScreen extends StatefulWidget {
   final OrderModel order;
 
   const OrderDetailScreen({
     super.key,
     required this.order,
   });
+
+  @override
+  State<OrderDetailScreen> createState() => _OrderDetailScreenState();
+}
+
+class _OrderDetailScreenState extends State<OrderDetailScreen> {
+  List<String> statusEnums = [
+    "En attente de confirmation",
+    "Confirmation de réception",
+    "En transit",
+    "Commande arrivée",
+    "Commande livré"
+  ];
+
+  int enumIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    // Find the index of "En transit" in the statusEnums list during initialization
+    enumIndex = statusEnums.indexWhere((element) =>
+        element.toLowerCase() ==
+        (widget.order.status?.toLowerCase() ?? "en transit"));
+    print("enumIndex => $enumIndex");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +61,7 @@ class OrderDetailScreen extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Text(
-              "${order.trackingId}",
+              "${widget.order.trackingId}",
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
@@ -57,7 +82,7 @@ class OrderDetailScreen extends StatelessWidget {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    color: "${order.status}" == 'Réceptionné en Chine'
+                    color: "${widget.order.status}" == 'Réceptionné en Chine'
                         ? Colors.green
                         : Colors.greenAccent,
                     borderRadius: BorderRadius.circular(16),
@@ -65,7 +90,7 @@ class OrderDetailScreen extends StatelessWidget {
                   padding: EdgeInsets.all(8),
                   child: Center(
                     child: Text(
-                      "${order.status}",
+                      "${widget.order.status}",
                       style: TextStyle(
                         color: Colors.white, // Text color
                         fontSize: 14, // Adjust the font size as needed
@@ -77,25 +102,34 @@ class OrderDetailScreen extends StatelessWidget {
               ],
             ),
             SizedBox(height: 20),
-            StatusRow(
-              title: "${order.status}",
-              label: "July 7 2022 08:00am",
+            Column(
+              children: List.generate(
+                enumIndex + 1,
+                (index) => StatusRow(
+                  title: "${statusEnums[index]}",
+                  label: "July 7 2022 08:00am",
+                ),
+              ),
             ),
-            StatusRow(
-              title: "En cours d’acheminement",
-              label: "July 7 2022 08:00am",
-            ),
-            StatusRow(
-              title: "Receptionné",
-              label: "July 7 2022 08:00am",
-            ),
-            StatusRow(
-              title: "Livré au client",
-              label: "July 7 2022 08:00am",
-            ),
+            // StatusRow(
+            //   title: "${order.status}",
+            //   label: "July 7 2022 08:00am",
+            // ),
+            // StatusRow(
+            //   title: "En cours d’acheminement",
+            //   label: "July 7 2022 08:00am",
+            // ),
+            // StatusRow(
+            //   title: "Receptionné",
+            //   label: "July 7 2022 08:00am",
+            // ),
+            // StatusRow(
+            //   title: "Livré au client",
+            //   label: "July 7 2022 08:00am",
+            // ),
             SizedBox(height: 20),
             Text(
-              "Package Information",
+              "Information du colis",
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
@@ -110,7 +144,7 @@ class OrderDetailScreen extends StatelessWidget {
               ),
             ),
             Text(
-              "${order.description}",
+              "${widget.order.description}",
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 color: Colors.grey[600],
@@ -124,7 +158,7 @@ class OrderDetailScreen extends StatelessWidget {
               ),
             ),
             Text(
-              "${order.transportType?.label}",
+              "${widget.order.transportType?.label}",
               style: TextStyle(
                 fontWeight: FontWeight.w600,
                 color: Colors.grey[600],
@@ -132,7 +166,7 @@ class OrderDetailScreen extends StatelessWidget {
             ),
             SizedBox(height: 25),
             Text(
-              "Other details",
+              "Autre information",
               style: TextStyle(
                 fontWeight: FontWeight.w600,
               ),
@@ -148,7 +182,7 @@ class OrderDetailScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "${order.typeColis?.label}",
+                  "${widget.order.typeColis?.label}",
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: Color(0xFFEC8000),
@@ -167,7 +201,7 @@ class OrderDetailScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "${order.unit?.label}",
+                  "${widget.order.unit?.label}",
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: Color(0xFFEC8000),
@@ -186,7 +220,7 @@ class OrderDetailScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "${order.trackingId}",
+                  "${widget.order.trackingId}",
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: Color(0xFFEC8000),
@@ -208,7 +242,7 @@ class OrderDetailScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "${order.quantity}",
+                  "${widget.order.quantity}",
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: Color(0xFFEC8000),
@@ -227,7 +261,7 @@ class OrderDetailScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "${order.pricing?.price}/${order.unit?.label}",
+                  "${widget.order.pricing?.price}/${widget.order.unit?.label}",
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: Color(0xFFEC8000),
@@ -247,7 +281,7 @@ class OrderDetailScreen extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  "${order.pricing!.price! * order.quantity!}",
+                  "${widget.order.pricing!.price! * widget.order.quantity!}",
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: Color(0xFFEC8000),
@@ -321,13 +355,13 @@ class StatusRow extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              Text(
-                label,
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFFEC8000),
-                ),
-              ),
+              // Text(
+              //   label,
+              //   style: TextStyle(
+              //     fontWeight: FontWeight.w600,
+              //     color: Color(0xFFEC8000),
+              //   ),
+              // ),
             ],
           )
         ],

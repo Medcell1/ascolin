@@ -1,12 +1,12 @@
 import 'package:ascolin/base/constant.dart';
 import 'package:ascolin/model/order_model.dart';
 import 'package:ascolin/view_model/order_provider.dart';
+import 'package:ascolin/widgets/name_text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../utils/reusable_signup_container.dart';
-import '../utils/reusable_textfield.dart';
 import 'order_detail_screen.dart';
 import 'send_a_package_page.dart';
 
@@ -18,6 +18,8 @@ class OrderListScreen extends StatefulWidget {
 }
 
 class _OrderListScreenState extends State<OrderListScreen> {
+  TextEditingController searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -32,7 +34,7 @@ class _OrderListScreenState extends State<OrderListScreen> {
       builder: (context, orderProvider, _) {
         return Scaffold(
           appBar: AppBar(
-            title: Text("Orders List"),
+            title: Text("Liste des commandes"),
           ),
           body: SafeArea(
             child: SingleChildScrollView(
@@ -42,41 +44,65 @@ class _OrderListScreenState extends State<OrderListScreen> {
                 children: [
                   SizedBox(height: 20),
                   Text(
-                    "Active Order",
+                    "Mes commandes",
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
                   SizedBox(height: 20),
-                  Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: size.width / 1.5,
-                        child: ReusableTextField(
-                          text: 'Email Address',
-                          hintText: 'Search',
-                        ),
-                      ),
-                      Text("Filters")
-                    ],
+                  NameTextField(
+                    controller: searchController,
+                    title: "Recherche",
+                    hintText: "keyword",
+                    onChanged: (val) => orderProvider.setKeyword(val),
                   ),
+                  // Row(
+                  //   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Container(
+                  //       // width: size.width / 1.5,
+                  //       child: ReusableTextField(
+                  //         text: 'Email Address',
+                  //         hintText: 'Search',
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   SizedBox(height: 20),
-                  ListView.separated(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: orderProvider.orderList.length,
-                    separatorBuilder: (context, index) => Divider(),
-                    itemBuilder: (context, index) {
-                      final OrderModel currentOrder =
-                          orderProvider.orderList[index];
+                  Builder(builder: (context) {
+                    if (orderProvider.keyword.isEmpty) {
+                      return ListView.separated(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: orderProvider.orderList.length,
+                        separatorBuilder: (context, index) => Divider(),
+                        itemBuilder: (context, index) {
+                          final OrderModel currentOrder =
+                              orderProvider.orderList[index];
 
-                      return OrderCard(
-                        order: currentOrder,
+                          return OrderCard(
+                            order: currentOrder,
+                          );
+                        },
                       );
-                    },
-                  ),
+                    } else {
+                      return ListView.separated(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: orderProvider.searchList.length,
+                        separatorBuilder: (context, index) => Divider(),
+                        itemBuilder: (context, index) {
+                          final OrderModel currentOrder =
+                              orderProvider.searchList[index];
+
+                          return OrderCard(
+                            order: currentOrder,
+                          );
+                        },
+                      );
+                    }
+                  }),
                   SizedBox(height: 80),
                 ],
               ),

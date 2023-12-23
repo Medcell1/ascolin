@@ -85,23 +85,24 @@ class OrderModel {
 }
 
 class Client {
-  String? sId;
+  String? id;
   String? firstName;
   String? lastName;
   String? email;
   String? phone;
   String? address;
 
-  Client(
-      {this.sId,
-      this.firstName,
-      this.lastName,
-      this.email,
-      this.phone,
-      this.address});
+  Client({
+    this.id,
+    this.firstName,
+    this.lastName,
+    this.email,
+    this.phone,
+    this.address,
+  });
 
   Client.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
+    id = json['_id'];
     firstName = json['firstName'];
     lastName = json['lastName'];
     email = json['email'];
@@ -111,7 +112,7 @@ class Client {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
+    data['_id'] = this.id;
     data['firstName'] = this.firstName;
     data['lastName'] = this.lastName;
     data['email'] = this.email;

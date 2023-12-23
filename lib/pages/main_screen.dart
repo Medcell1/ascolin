@@ -1,4 +1,5 @@
 import 'package:ascolin/pages/home_page.dart';
+import 'package:ascolin/pages/order_list_screen.dart';
 import 'package:ascolin/pages/profile_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -34,8 +35,9 @@ class _MainScreenState extends State<MainScreen> {
         },
         children: [
           HomePage(),
-          Center(child: Text('Wallet')),
-          Center(child: Text('Track')),
+          OrderListScreen(),
+          // Center(child: Text('Wallet')),
+          // Center(child: Text('Track')),
           ProfileScreen(),
         ],
         controller: _pageController,

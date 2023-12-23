@@ -7,7 +7,7 @@ class PhoneTextField extends StatelessWidget {
   const PhoneTextField({
     Key? key,
     required this.controller,
-    this.title = 'Phone Number',
+    this.title = 'Numéro de téléphone',
     this.hintText = '1234567890',
     this.onChanged,
   }) : super(key: key);

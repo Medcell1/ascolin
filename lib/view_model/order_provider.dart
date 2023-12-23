@@ -14,6 +14,7 @@ import '../widgets/error_dialog.dart';
 
 class OrderProvider extends ChangeNotifier {
   List<OrderModel> orderList = [];
+  List<OrderModel> searchList = [];
 
   List<UnitModel> measureUnits = [UnitModel(label: "A")];
   List<CountryModel> countries = [];
@@ -24,6 +25,47 @@ class OrderProvider extends ChangeNotifier {
   // String selectedUnit =
 
   GlobalKey<FormState> orderFormKey = GlobalKey<FormState>();
+
+  // Search order
+  String keyword = '';
+
+  void setKeyword(String val) {
+    keyword = val;
+    if (keyword.isNotEmpty) {
+      searchComande();
+    }
+    notifyListeners();
+  }
+
+  void searchComande() {
+    String lowercaseKeyword = keyword.toLowerCase();
+
+    List<OrderModel> searchResult = orderList
+        .where((item) =>
+            item.client != null &&
+            (item.client!.id?.toLowerCase().contains(lowercaseKeyword) ==
+                    true ||
+                item.client!.firstName
+                        ?.toLowerCase()
+                        .contains(lowercaseKeyword) ==
+                    true ||
+                item.client!.lastName
+                        ?.toLowerCase()
+                        .contains(lowercaseKeyword) ==
+                    true ||
+                item.client!.email?.toLowerCase().contains(lowercaseKeyword) ==
+                    true ||
+                item.client!.phone?.toLowerCase().contains(lowercaseKeyword) ==
+                    true ||
+                item.client!.address
+                        ?.toLowerCase()
+                        .contains(lowercaseKeyword) ==
+                    true))
+        .toList();
+
+    searchList = searchResult;
+    notifyListeners();
+  }
 
   // Create Order variables
   String description = '';

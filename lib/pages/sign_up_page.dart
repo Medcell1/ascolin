@@ -7,7 +7,6 @@ import 'package:ascolin/widgets/phone_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../utils/reusable_text.dart';
 import '../widgets/password_field.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -42,9 +41,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   height: 81,
                 ),
                 Container(
-                  margin: EdgeInsets.only(right: width * 0.45),
                   child: const Text(
-                    'Create an account',
+                    'Créer un compte',
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 24,
@@ -54,7 +52,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 Container(
                   margin: EdgeInsets.only(right: width * 0.25),
                   child: const Text(
-                    'Complete the sign up process to get started',
+                    "Terminez le processus d'inscription pour commencer",
                     style: TextStyle(
                       color: Color(0xffA7A7A7),
                       fontWeight: FontWeight.bold,
@@ -70,14 +68,14 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: Column(
                     children: [
                       NameTextField(
-                        title: 'First Name',
+                        title: 'Prénoms',
                         hintText: 'John',
                         controller: firstNameController,
                         onChanged: (value) => authViewModel.setFirstName(value),
                       ),
                       const SizedBox(height: 10),
                       NameTextField(
-                        title: 'Last Name',
+                        title: 'Nom',
                         hintText: 'Doe',
                         controller: lastNameController,
                         onChanged: (value) => authViewModel.setLastName(value),
@@ -109,55 +107,71 @@ class _SignUpPageState extends State<SignUpPage> {
                     SizedBox(
                       height: 20,
                     ),
-                    Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            _isChecked = !_isChecked;
-                            setState(() {});
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(left: 20),
-                            width: 20,
-                            height: 20,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(3),
-                              color:
-                                  _isChecked ? Color(0xff006CEC) : Colors.white,
-                              border: Border.all(
-                                color: const Color(0xff006CEC),
+                    SizedBox(
+                      width: width,
+                      child: Row(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              _isChecked = !_isChecked;
+                              setState(() {});
+                            },
+                            child: Container(
+                              margin: const EdgeInsets.only(left: 20),
+                              width: 20,
+                              height: 20,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(3),
+                                color: _isChecked
+                                    ? Color(0xff006CEC)
+                                    : Colors.white,
+                                border: Border.all(
+                                  color: const Color(0xff006CEC),
+                                ),
                               ),
-                            ),
-                            child: Visibility(
-                              visible: _isChecked,
-                              child: Icon(
-                                Icons.check,
-                                color: _isChecked ? Colors.white : Colors.black,
-                                size: 16,
+                              child: Visibility(
+                                visible: _isChecked,
+                                child: Icon(
+                                  Icons.check,
+                                  color:
+                                      _isChecked ? Colors.white : Colors.black,
+                                  size: 16,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 6,
-                        ),
-                        const ReusableText(
-                          text: 'By ticking this box, you agree to our',
-                          color: Color(0xffCFCFCF),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        const ReusableText(
-                          text: 'Terms ',
-                          color: Color(0xffEBBC2E),
-                        ),
-                      ],
-                    ),
-                    const Center(
-                      child: ReusableText(
-                        text: 'and conditions and private policy',
-                        color: Color(0xffEBBC2E),
+                          const SizedBox(
+                            width: 6,
+                          ),
+                          Expanded(
+                            flex: 5,
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text:
+                                        'En cochant cette case, vous acceptez nos ',
+                                    style: TextStyle(
+                                      color: Colors.grey[500],
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text:
+                                        'Termes et conditions et politique privée',
+                                    style: TextStyle(
+                                      color: Colors.amber,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                        ],
                       ),
                     ),
                     SizedBox(
@@ -170,7 +184,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         },
                         child: ReusableSignUpContainer(
                           onTap: () => authViewModel.signUp(context),
-                          text: 'Sign Up',
+                          text: "S'inscrire",
                         ),
                       ),
                     ),
@@ -181,7 +195,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          'Already have an account?  ',
+                          'Avez-vous un compte? ',
                           style: TextStyle(
                               fontSize: 15,
                               color: Colors.grey,
@@ -199,7 +213,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             );
                           },
                           child: const Text(
-                            'Sign in',
+                            'Se connecter',
                             style: TextStyle(
                                 fontSize: 15,
                                 color: Color(0xff0560fa),

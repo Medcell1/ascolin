@@ -1,7 +1,9 @@
+import 'package:ascolin/pages/sign_in_page.dart';
 import 'package:ascolin/view_model/auth_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -36,6 +38,13 @@ class ProfileScreen extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
+                                "${authViewModel.userData.lastName?.toUpperCase()} ${authViewModel.userData.firstName}",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              Text(
                                 "${authViewModel.userData.email}",
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -43,95 +52,115 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(height: 5),
-                              RichText(
-                                text: TextSpan(
-                                  children: [
-                                    TextSpan(
-                                      text: 'Balance: ',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    TextSpan(
-                                      text: 'N10,712:00',
-                                      style: TextStyle(
-                                        color: Color(0xFF04009A),
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              // RichText(
+                              //   text: TextSpan(
+                              //     children: [
+                              //       TextSpan(
+                              //         text: 'Balance: ',
+                              //         style: TextStyle(
+                              //           color: Colors.black,
+                              //           fontSize: 16,
+                              //         ),
+                              //       ),
+                              //       TextSpan(
+                              //         text: 'N10,712:00',
+                              //         style: TextStyle(
+                              //           color: Color(0xFF04009A),
+                              //           fontSize: 16,
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
                             ],
                           ),
                         ],
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(CupertinoIcons.eye_slash_fill),
-                      )
+                      // IconButton(
+                      //   onPressed: () {},
+                      //   icon: Icon(CupertinoIcons.eye_slash_fill),
+                      // )
                     ],
                   ),
                   SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Enable dark mode',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      CupertinoSwitch(
-                        value: false,
-                        onChanged: (val) {},
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     Text(
+                  //       'Enable dark mode',
+                  //       style: TextStyle(
+                  //         fontSize: 16,
+                  //         fontWeight: FontWeight.w600,
+                  //       ),
+                  //     ),
+                  //     CupertinoSwitch(
+                  //       value: false,
+                  //       onChanged: (val) {},
+                  //     ),
+                  //   ],
+                  // ),
                   SizedBox(height: 20),
-                  ProfileOptionCard(
-                    icon: Icon(
-                      CupertinoIcons.profile_circled,
-                      size: 30,
-                    ),
-                    title: "Edit Profile",
-                    subtitle: "Name, phone no, address, email ...",
-                  ),
+                  // ProfileOptionCard(
+                  //   icon: Icon(
+                  //     CupertinoIcons.profile_circled,
+                  //     size: 30,
+                  //   ),
+                  //   title: "Modifier des information",
+                  //   subtitle: "Nom, telephone, addresse, email ...",
+                  // ),
                   // SizedBox(height: 15),
-                  ProfileOptionCard(
-                    icon: Icon(
-                      CupertinoIcons.calendar_circle,
-                      size: 30,
-                    ),
-                    title: "Contact",
-                    subtitle: "Name, phone no, address, email ...",
-                  ),
-                  ProfileOptionCard(
-                    icon: Icon(
-                      CupertinoIcons.bell,
-                      size: 30,
-                    ),
-                    title: "Notification Settings",
-                    subtitle: "Name, phone no, address, email ...",
-                  ),
+                  // ProfileOptionCard(
+                  //   icon: Icon(
+                  //     CupertinoIcons.calendar_circle,
+                  //     size: 30,
+                  //   ),
+                  //   title: "Contact",
+                  //   subtitle: "Name, phone no, address, email ...",
+                  // ),
+                  // ProfileOptionCard(
+                  //   icon: Icon(
+                  //     CupertinoIcons.bell,
+                  //     size: 30,
+                  //   ),
+                  //   title: "Notification Settings",
+                  //   subtitle: "Name, phone no, address, email ...",
+                  // ),
                   SizedBox(height: size.height / 10),
-                  ProfileOptionCard(
-                    icon: Icon(
-                      Icons.image_outlined,
-                      size: 30,
+                  GestureDetector(
+                    onTap: () {
+                      launchUrl(Uri.parse("https://wa.me/22963000751"));
+                    },
+                    child: ProfileOptionCard(
+                      icon: Icon(
+                        Icons.image_outlined,
+                        size: 30,
+                      ),
+                      title: "À propos",
+                      subtitle: "En savoir plus sur nous, termes et conditions",
                     ),
-                    title: "About Us",
-                    subtitle: "Know more about us, terms and conditions",
                   ),
-                  ProfileOptionCard(
-                    icon: Icon(
-                      Icons.logout,
-                      size: 30,
-                      color: Colors.red,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return WillPopScope(
+                              onWillPop: () async => false,
+                              child: SignInPage(),
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    child: ProfileOptionCard(
+                      icon: Icon(
+                        Icons.logout,
+                        size: 30,
+                        color: Colors.red,
+                      ),
+                      title: "Log Out",
                     ),
-                    title: "Log Out",
                   ),
                   SizedBox(height: 20),
                 ],
